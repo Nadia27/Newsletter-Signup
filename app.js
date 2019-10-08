@@ -4,6 +4,11 @@ const express = require('express'); // Server
 const bodyParser = require('body-parser'); // middleware: parse incoming requests
 const request = require('request'); // allows http requests
 
+const config = require('./config.js');
+
+const myKey = config.MAILCHIMP_API_KEY;
+const myList = config.MAILCHIMP_AUDIENCE_ID;
+
 
 const app = express();
 
@@ -37,27 +42,34 @@ app.post('/', (req, res) => {
   var jsonData = JSON.stringify(data);
 
   var options = {
-    url: 'https://us20.api.mailchimp.com/3.0/lists/7b80bdeb6f',
+    url: 'https://us20.api.mailchimp.com/3.0/lists/' + myList,
     method: 'POST',
     headers: {
-      'Authorization': 'nadia 52e6735406006ddc48c04467fc3bda4b-us20'
+      'Authorization': 'nadia ' + myKey
     },
-    body: jsonData
+    //body: jsonData
   }
 
   request(options, (error, response, body) => {
     if(error) {
-      console.log(error);
+      res.sendFile(__dirname + '/failure.html');
     } else {
-      console.log(response.statusCode);
+      if(response.statusCode === 200) {
+        res.sendFile(__dirname + '/success.html');
+      } else {
+        res.sendFile(__dirname + '/failure.html');
+      }
+
     }
   });
 });
 
+app.post('/failure', (req, res) => {
+  res.redirect('/');
+})
+
+
+
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
-
-// 52e6735406006ddc48c04467fc3bda4b-us20
-
-// 7b80bdeb6f
