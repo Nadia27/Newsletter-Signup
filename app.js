@@ -6,8 +6,8 @@ const request = require('request'); // allows http requests
 
 const config = require('./config.js');
 
-const myKey = config.MAILCHIMP_API_KEY;
-const myList = config.MAILCHIMP_AUDIENCE_ID;
+const myKey = process.env.MAILCHIMP_API_KEY || config.MAILCHIMP_API_KEY;
+const myList = process.env.MAILCHIMP_AUDIENCE_ID || config.MAILCHIMP_AUDIENCE_ID;
 
 
 const app = express();
