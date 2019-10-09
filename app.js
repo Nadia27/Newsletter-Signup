@@ -47,7 +47,7 @@ app.post('/', (req, res) => {
     headers: {
       'Authorization': 'nadia ' + myKey
     },
-    //body: jsonData
+    body: jsonData
   }
 
   request(options, (error, response, body) => {
