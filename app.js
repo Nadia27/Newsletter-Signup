@@ -4,7 +4,7 @@ const express = require('express'); // Server
 const bodyParser = require('body-parser'); // middleware: parse incoming requests
 const request = require('request'); // allows http requests
 
-const config = require('./config.js'); 
+const config = require('./config.js');
 
 const myKey = config.MAILCHIMP_API_KEY;
 const myList = config.MAILCHIMP_AUDIENCE_ID;
@@ -70,6 +70,6 @@ app.post('/failure', (req, res) => {
 
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('Server is running on port 3000');
 });
