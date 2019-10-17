@@ -3,11 +3,10 @@
 const express = require('express'); // Server
 const bodyParser = require('body-parser'); // middleware: parse incoming requests
 const request = require('request'); // allows http requests
+require('dotenv').config();
 
-//const config = require('./config.js');
-
-const myKey = process.env.MAILCHIMP_API_KEY || config.MAILCHIMP_API_KEY;
-const myList = process.env.MAILCHIMP_AUDIENCE_ID || config.MAILCHIMP_AUDIENCE_ID;
+const myKey = process.env.MAILCHIMP_API_KEY;
+const myList = process.env.MAILCHIMP_AUDIENCE_ID;
 
 
 const app = express();
@@ -66,8 +65,7 @@ app.post('/', (req, res) => {
 
 app.post('/failure', (req, res) => {
   res.redirect('/');
-})
-
+});
 
 
 app.listen(process.env.PORT || 3000, () => {
